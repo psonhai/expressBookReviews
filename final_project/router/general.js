@@ -25,15 +25,20 @@ public_users.post("/register", (req, res) => {
 
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
-  const promise = new Promise((resolve, reject) => {
-    console.log("getting all books")
-    setTimeout(() => {
-      resolve(books)
-      console.log("done")
-    }, 0)
-  })
+  const getBooks = async () => {
+    const promise = new Promise((resolve, reject) => {
+      console.log("getting all books")
+      setTimeout(() => {
+        resolve(books)
+        console.log("done")
+      }, 500)
+    })
 
-  promise.then((books) => {
+    const result = await promise
+    return result
+  }
+
+  getBooks().then((books) => {
     return res.status(200).send(JSON.stringify(books, null, '\t'))
   })
 });
